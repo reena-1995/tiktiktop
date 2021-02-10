@@ -1,0 +1,25 @@
+.form-parent{
+    background-color: rgb(17 17 93);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-div{
+     background-color: rgb(42, 40, 143);
+     border: rgb(42, 65, 165) 2px solid;
+     box-shadow: ;
+}
+.main-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3px;
+    margin: 2px;
+}
+.form-text{
+    color: white;
+}
+.form-group-class{
+  color: white;
+}

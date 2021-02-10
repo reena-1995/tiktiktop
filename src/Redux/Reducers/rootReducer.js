@@ -1,0 +1,1 @@
+export const rootReducer = combineReducers({potato: potatoReducer, tomato: tomatoReducer})
