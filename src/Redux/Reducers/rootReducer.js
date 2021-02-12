@@ -1,1 +1,3 @@
-export const rootReducer = combineReducers({potato: potatoReducer, tomato: tomatoReducer})
+import index from './Auth/index';
+import { combineReducers } from 'redux'
+export const rootReducer = combineReducers({index: index})

@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { Form,Button,Spinner } from 'react-bootstrap';
 
 
-const Login = () => {
+const Register = () => {
     const [is_loader, setLoaderStatus] = useState(false);
 
     const setLoaderTrue = ()=>{
@@ -85,4 +85,4 @@ const Login = () => {
     
 }
 
-export default Login
+export default Register
