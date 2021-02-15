@@ -1,12 +1,20 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './style.css';
 import { Formik } from 'formik';
 import { Form,Button,Spinner } from 'react-bootstrap';
-
+import { useSelector,useDispatch } from 'react-redux';
+import {businessTypeList} from '../../Redux/Actions/Auth';
 
 const Register = () => {
     const [is_loader, setLoaderStatus] = useState(false);
-
+    const dispatch     = useDispatch();
+    useEffect(() => {
+        dispatch(businessTypeList());
+    },[]);
+                                  //params are - Reducer Name,stateName 
+    const businessList = useSelector(state => state.businessList.businessListing)
+   
+   
     const setLoaderTrue = ()=>{
         setLoaderStatus(true);
     }
@@ -49,8 +57,8 @@ const Register = () => {
         <div className="form-parent "> 
            <div className="form-div p-4 px-5 shadow bg-grey">
                     <div className="form-text">
-                        <h3>Login</h3>
-                        <p>Welcome Back! Please login to your account.</p>
+                        <h3>Register</h3>
+                        <p>Welcome! Please register your account.</p>
                     </div>
                     <Form className="main-form" onSubmit={handleSubmit} autoComplete="off">
                         <Form.Group controlId="formBasicEmail" className="form-group-class w-100">
@@ -69,6 +77,26 @@ const Register = () => {
                             value={values.password}/>
                             <p className="text-danger">{errors.password && touched.password && errors.password}</p>
                         </Form.Group>
+
+                        <Form.Group controlId="formBasicMobileNumber"  className="form-group-class w-100">
+                            <Form.Label>Mobile Number</Form.Label>
+                            <Form.Control type="text" placeholder="Mobile Number" name="mobile_number" onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.mobile_number}/>
+                            <p className="text-danger">{errors.mobile_number && touched.mobile_number && errors.mobile_number}</p>
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlSelect1" className="form-group-class w-100">
+                        <Form.Label>Choose Business Type</Form.Label>
+                        <Form.Control as="select">
+                        {businessList.map((list) => (
+                           <option key={list.slug}>{list.name}</option> 
+                        ))}
+                                   
+                        </Form.Control>
+                        </Form.Group>
+
+
+                        
                         
                         <Form.Group controlId="formBasicCheckbox"  className="form-group-class">
                             <Form.Check type="checkbox" label="Check me out" />

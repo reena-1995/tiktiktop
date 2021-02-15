@@ -1,3 +1,3 @@
-import index from './Auth/index';
+import {businessList} from './Auth/index';
 import { combineReducers } from 'redux'
-export const rootReducer = combineReducers({index: index})
+export const rootReducer = combineReducers({businessList})

@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
 import './style.css';
 import { Formik } from 'formik';
-import { Form,Button,Spinner } from 'react-bootstrap';
-
+import { Form,Button,Spinner, } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [is_loader, setLoaderStatus] = useState(false);
@@ -76,6 +76,10 @@ const Login = () => {
                         <Button variant="primary" type="submit">
                              {is_loader ?  <Spinner animation="grow" size="sm" className="px-2"/> : "Submit"}
                         </Button>
+                        <div  className="form-text">
+                          Don't have account ?<Link to="/register" className="link-class"><strong> Register </strong></Link>
+                        </div>
+                         
                      </Form>
                 </div>
             </div>

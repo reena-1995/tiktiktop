@@ -1,11 +1,20 @@
 import React from 'react'
 import {ThemeContext} from './Context/ThemeContext';
-import  Login from './Components/AuthPages/Login'
+import  {Login,Register} from './Components';
+import { BrowserRouter, Switch, Route} from "react-router-dom";
+
 const Router = () => {
     return (
-        <div>
-            <Login/>
-        </div>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/login">
+                    <Login/>
+                </Route> 
+                <Route exact path="/register">
+                    <Register/>
+                </Route>   
+            </Switch>
+        </BrowserRouter>
     )
 }
 

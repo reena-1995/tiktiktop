@@ -1,11 +1,22 @@
-import React from 'react'
-
-const index = () => {
-    return (
-        <div>
-            
-        </div>
-    )
+const initialState ={ 
+    businessListing :[],
+    isAuthenticated:false,
+    isLoading:false
 }
 
-export default index
+export const businessList = (state=initialState,action) =>{
+    switch (action.type) {
+        case "BUSINESS_LIST":
+            return {
+                ...state,
+                businessListing:action.payload.data
+            }
+    
+        default:
+            return{
+                ...state
+            }
+          
+    }
+
+}

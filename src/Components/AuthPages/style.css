@@ -23,3 +23,12 @@
 .form-group-class{
   color: white;
 }
+.link-class{
+    color:rgb(221, 47, 82);
+    text-decoration: none;
+    font-size: 20px;
+}
+.link-class:hover{
+    text-decoration: none;
+    color: white;
+}
