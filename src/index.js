@@ -13,29 +13,29 @@ export const instance = axios.create({
   headers: {"Device-Id":"ART677","Is-Debug":"0","Device-Token":"77tgt467884ghyuj8888uuujjhjgtt","Environment":"SANDBOX","Device-Name":"Note-6","App-Version":"1","Device-type":"WEB"}
 });
 export const setAuthToken = token => {
-  if (token) {
-  //applying token
-  instance.defaults.headers.common['Authorization'] = token;
-  } else {
-  //deleting the token from header
-  delete instance.defaults.headers.common['Authorization'];
-  }
+    if (token) {
+    //applying token
+    instance.defaults.headers.common['Authorization'] = token;
+    } else {
+    //deleting the token from header
+    delete instance.defaults.headers.common['Authorization'];
+    }
   instance.interceptors.request.use(req=>{
-    if(axios.defaults.headers.common['Authorization'])
-    return req;
-    throw({message:"Token in not available"});
-},
-error=> {
-    return Promise.reject(error);
-}
-);
-instance.interceptors.response.use(response=>response,
-  error=>{
-    const fallbackValue = [
-      {userId: "Not authorized",id: "aerw15311sq",
-       title: "Please try     again",completed: false}];
-     return Promise.reject(fallbackValue);}
+      if(axios.defaults.headers.common['Authorization'])
+      return req;
+      throw({message:"Token in not available"});
+  },
+  error=> {
+      return Promise.reject(error);
+  }
   );
+  instance.interceptors.response.use(response=>response,
+    error=>{
+      const fallbackValue = [
+        {userId: "Not authorized",id: "aerw15311sq",
+        title: "Please try     again",completed: false}];
+      return Promise.reject(fallbackValue);}
+    );
  }
 
   

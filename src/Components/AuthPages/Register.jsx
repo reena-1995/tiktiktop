@@ -1,26 +1,28 @@
 import React,{useState,useEffect} from 'react'
 import './style.css';
 import { Formik } from 'formik';
-import { Form,Button,Spinner } from 'react-bootstrap';
+import { Form,Button,Spinner,Col } from 'react-bootstrap';
 import { useSelector,useDispatch } from 'react-redux';
-import {businessTypeList} from '../../Redux/Actions/Auth';
+import {businessTypeList,registerSubmit} from '../../Redux/Actions/Auth';
 
 const Register = () => {
-    const [is_loader, setLoaderStatus] = useState(false);
-    const dispatch     = useDispatch();
+    const [is_loader, setLoaderStatus]    = useState(false);
+    const [is_page_loader, setPageLoader] = useState(true);
+    const  dispatch     = useDispatch();
     useEffect(() => {
-        dispatch(businessTypeList());
+        dispatch(businessTypeList()).then(res=>{
+            setPageLoader(false);
+        });
     },[]);
                                   //params are - Reducer Name,stateName 
     const businessList = useSelector(state => state.businessList.businessListing)
-   
-   
     const setLoaderTrue = ()=>{
         setLoaderStatus(true);
     }
     return (
+        
         <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: '', password: '', password_confirmation:'',mobile_number:'',business_type:''}}
         validate={values => {
             const errors = {};
             if (!values.email) {
@@ -33,6 +35,15 @@ const Register = () => {
             if (!values.password) {
                 errors.password = 'Please enter password';
             }
+            if (!values.password_confirmation) {
+                errors.password_confirmation = 'Please enter confirm password';
+            }
+            if (!values.business_type) {
+                errors.business_type = 'Please select business type';
+            }
+            if (!values.mobile_number) {
+                errors.mobile_number = 'Please enter mobile number';
+            }
             return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -42,6 +53,7 @@ const Register = () => {
             setSubmitting(false);
             setLoaderStatus(false);
             }, 400);
+            dispatch(registerSubmit(values));
         }}
      >
        {({
@@ -55,60 +67,81 @@ const Register = () => {
          /* and other goodies */
        }) => (
         <div className="form-parent "> 
+        {is_page_loader ? <Spinner animation="grow" className="px-2" variant="danger"  /> :
            <div className="form-div p-4 px-5 shadow bg-grey">
+                  
                     <div className="form-text">
                         <h3>Register</h3>
                         <p>Welcome! Please register your account.</p>
                     </div>
                     <Form className="main-form" onSubmit={handleSubmit} autoComplete="off">
-                        <Form.Group controlId="formBasicEmail" className="form-group-class w-100">
+                        <Form.Row>
+                        <Form.Group controlId="formBasicEmail" className="form-group-class w-100" as={Col}>
                             <Form.Label>Email address</Form.Label>
                             <Form.Control type="email" placeholder="Enter email" name="email" 
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.email}/>
                             <p className="text-danger">{errors.email && touched.email && errors.email}</p>
+                            
                         </Form.Group>
-
-                        <Form.Group controlId="formBasicPassword"  className="form-group-class w-100">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" name="password" onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.password}/>
-                            <p className="text-danger">{errors.password && touched.password && errors.password}</p>
-                        </Form.Group>
-
-                        <Form.Group controlId="formBasicMobileNumber"  className="form-group-class w-100">
+                        <Form.Group controlId="formBasicMobileNumber"  className="form-group-class w-100" as={Col}>
                             <Form.Label>Mobile Number</Form.Label>
                             <Form.Control type="text" placeholder="Mobile Number" name="mobile_number" onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.mobile_number}/>
                             <p className="text-danger">{errors.mobile_number && touched.mobile_number && errors.mobile_number}</p>
                         </Form.Group>
-                        <Form.Group controlId="exampleForm.ControlSelect1" className="form-group-class w-100">
-                        <Form.Label>Choose Business Type</Form.Label>
-                        <Form.Control as="select">
-                        {businessList.map((list) => (
-                           <option key={list.slug}>{list.name}</option> 
-                        ))}
-                                   
-                        </Form.Control>
+                        </Form.Row>
+                        <Form.Row>
+                       
+                        <Form.Group controlId="formBasicPassword"  className="form-group-class w-100" as={Col}>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" name="password" onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.password}/>
+                            <p className="text-danger">{errors.password && touched.password && errors.password}</p>
                         </Form.Group>
-
-
+                        <Form.Group controlId="formBasicPassword"  className="form-group-class w-100" as={Col}>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Confirm Password" name="password_confirmation" onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.password_confirmation}/>
+                            <p className="text-danger">{errors.password_confirmation && touched.password_confirmation && errors.password_confirmation}</p>
+                        </Form.Group>
+                        </Form.Row>
+                       
+                       <Form.Row className="w-100">
                         
+                        <Form.Group controlId="exampleForm.ControlSelect1" className="form-group-class w-100" >
+                            <Form.Label>Choose Business Type</Form.Label>
+                                <Form.Control as="select" name="business_type" onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    >
+                                    <option value="" >Please select business type</option> 
+                                    {businessList.map((list) => (
+                                    <option key={list.slug} value={values.slug}>{list.name}</option> 
+                                    ))}
+                                </Form.Control>
+                            <p className="text-danger">{errors.business_type && touched.business_type && errors.business_type}</p>
                         
-                        <Form.Group controlId="formBasicCheckbox"  className="form-group-class">
+                        </Form.Group>
+                        <Form.Group controlId="formBasicCheckbox"  className="form-group-class" as={Col}>
                             <Form.Check type="checkbox" label="Check me out" />
                         </Form.Group>
+                        </Form.Row>
                         <Button variant="primary" type="submit">
                              {is_loader ?  <Spinner animation="grow" size="sm" className="px-2"/> : "Submit"}
                         </Button>
-                     </Form>
+                    </Form>
                 </div>
+              }
             </div>
             )}
-         </Formik>
+            </Formik>
+          
+        
+         
       );
     
 }
