@@ -75,6 +75,23 @@ const Register = () => {
                         <p>Welcome! Please register your account.</p>
                     </div>
                     <Form className="main-form" onSubmit={handleSubmit} autoComplete="off">
+                    <Form.Row>
+                        <Form.Group controlId="formBasicEmail" className="form-group-class w-100" as={Col}>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" placeholder="Enter name" name="name" 
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.name}/>
+                            <p className="text-danger">{errors.name && touched.name && errors.name}</p>
+                        </Form.Group>
+                        <Form.Group controlId="formBasicMobileNumber"  className="form-group-class w-100" as={Col}>
+                            <Form.Label>Mobile Number</Form.Label>
+                            <Form.Control type="text" placeholder="Mobile Number" name="mobile_number" onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.mobile_number}/>
+                            <p className="text-danger">{errors.mobile_number && touched.mobile_number && errors.mobile_number}</p>
+                        </Form.Group>
+                        </Form.Row>
                         <Form.Row>
                         <Form.Group controlId="formBasicEmail" className="form-group-class w-100" as={Col}>
                             <Form.Label>Email address</Form.Label>
@@ -83,7 +100,6 @@ const Register = () => {
                             onBlur={handleBlur}
                             value={values.email}/>
                             <p className="text-danger">{errors.email && touched.email && errors.email}</p>
-                            
                         </Form.Group>
                         <Form.Group controlId="formBasicMobileNumber"  className="form-group-class w-100" as={Col}>
                             <Form.Label>Mobile Number</Form.Label>
