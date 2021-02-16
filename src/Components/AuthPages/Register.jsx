@@ -22,7 +22,7 @@ const Register = () => {
     return (
         
         <Formik
-        initialValues={{ email: '', password: '', password_confirmation:'',mobile_number:'',business_type:''}}
+        initialValues={{ email: '', password: '', password_confirmation:'',mobile_number:'',business_type:'',latitude:'34444',longitude:'4qw44q2q4'}}
         validate={values => {
             const errors = {};
             if (!values.email) {
@@ -55,7 +55,7 @@ const Register = () => {
             }, 400);
             dispatch(registerSubmit(values));
         }}
-     >
+         >
        {({
          values,
          errors,
@@ -84,12 +84,12 @@ const Register = () => {
                             value={values.name}/>
                             <p className="text-danger">{errors.name && touched.name && errors.name}</p>
                         </Form.Group>
-                        <Form.Group controlId="formBasicMobileNumber"  className="form-group-class w-100" as={Col}>
-                            <Form.Label>Mobile Number</Form.Label>
-                            <Form.Control type="text" placeholder="Mobile Number" name="mobile_number" onChange={handleChange}
+                        <Form.Group controlId="formBasicAddress"  className="form-group-class w-100" as={Col}>
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control type="text" placeholder="Address" name="address" onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.mobile_number}/>
-                            <p className="text-danger">{errors.mobile_number && touched.mobile_number && errors.mobile_number}</p>
+                            value={values.address}/>
+                            <p className="text-danger">{errors.address && touched.address && errors.address}</p>
                         </Form.Group>
                         </Form.Row>
                         <Form.Row>
@@ -119,12 +119,13 @@ const Register = () => {
                             <p className="text-danger">{errors.password && touched.password && errors.password}</p>
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword"  className="form-group-class w-100" as={Col}>
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label>Confirm Password</Form.Label>
                             <Form.Control type="password" placeholder="Confirm Password" name="password_confirmation" onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.password_confirmation}/>
                             <p className="text-danger">{errors.password_confirmation && touched.password_confirmation && errors.password_confirmation}</p>
                         </Form.Group>
+                           
                         </Form.Row>
                        
                        <Form.Row className="w-100">
@@ -136,11 +137,10 @@ const Register = () => {
                                     >
                                     <option value="" >Please select business type</option> 
                                     {businessList.map((list) => (
-                                    <option key={list.slug} value={values.slug}>{list.name}</option> 
+                                    <option key={list.slug} value={list.slug}>{list.name}</option> 
                                     ))}
                                 </Form.Control>
                             <p className="text-danger">{errors.business_type && touched.business_type && errors.business_type}</p>
-                        
                         </Form.Group>
                         <Form.Group controlId="formBasicCheckbox"  className="form-group-class" as={Col}>
                             <Form.Check type="checkbox" label="Check me out" />

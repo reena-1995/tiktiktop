@@ -6,7 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Provider} from 'react-redux';
 import {store} from './Redux/Store/store';
 import axios from 'axios';
-
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
 
 export const instance = axios.create({
   baseURL:"https://api-dev.manewayznavigation.com/merchant",
@@ -14,11 +15,11 @@ export const instance = axios.create({
 });
 export const setAuthToken = token => {
     if (token) {
-    //applying token
-    instance.defaults.headers.common['Authorization'] = token;
+      //applying token
+      instance.defaults.headers.common['Authorization'] = token;
     } else {
-    //deleting the token from header
-    delete instance.defaults.headers.common['Authorization'];
+       //deleting the token from header
+       delete instance.defaults.headers.common['Authorization'];
     }
   instance.interceptors.request.use(req=>{
       if(axios.defaults.headers.common['Authorization'])
@@ -42,7 +43,10 @@ export const setAuthToken = token => {
 
 
 ReactDOM.render(
-   <Provider store={store}><App /></Provider>,
+   <Provider store={store}>
+    <ReactNotification />
+    <App />
+   </Provider>,
   document.getElementById('root')
 );
 

@@ -1,14 +1,18 @@
-import React from 'react'
+import React,{Suspense} from 'react'
 import {ThemeContext} from './Context/ThemeContext';
 import  {Login,Register} from './Components';
 import { BrowserRouter, Switch, Route} from "react-router-dom";
+import {history} from './history';
+const LoginComponent = React.lazy(() => Login);
 
 const Router = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter history={history}>
             <Switch>
                 <Route exact path="/login">
-                    <Login/>
+                   <Suspense fallback={<div>Loading...</div>}>
+                     <LoginComponent/>
+                    </Suspense>
                 </Route> 
                 <Route exact path="/register">
                     <Register/>

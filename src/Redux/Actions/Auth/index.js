@@ -1,5 +1,6 @@
 import {instance} from '../../../../src/index'
-
+import notification from '../../../Components/Notification/Notification'
+import {history} from '../../../../src/history'
 export const businessTypeList  = () => {
     return (dispatch) => {
         return instance.get("/business-type-list").then(res =>{
@@ -16,9 +17,14 @@ export const registerSubmit  = (values) => {
     return (dispatch) => {
         return instance.post("/register",values).then(res =>{
             dispatch({type:"REGISTER_SUCCESS",payload:res.data})
+            notification('Manewayz',res.data.message,'success')
+            history.push('/login');
             return Promise.resolve(res)
         }).catch(error=>{
-            dispatch({type:"REGISTER_ERROR",payload:error.data})
+            history.push('/login');
+            const errorMessage = (error.response.data.message) ? error.response.data.message : "Something went wrong. Please try again."
+            notification('Manewayz',errorMessage,'danger')
+            dispatch({type:"REGISTER_ERROR",payload:error})
             return Promise.reject(error)
         })
     }
