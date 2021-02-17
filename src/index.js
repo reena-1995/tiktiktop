@@ -8,6 +8,7 @@ import {store} from './Redux/Store/store';
 import axios from 'axios';
 import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
+import {Layout} from '../src/Context/ThemeContext';
 
 export const instance = axios.create({
   baseURL:"https://api-dev.manewayznavigation.com/merchant",
@@ -35,7 +36,7 @@ export const setAuthToken = token => {
       const fallbackValue = [
         {userId: "Not authorized",id: "aerw15311sq",
         title: "Please try     again",completed: false}];
-      return Promise.reject(fallbackValue);}
+        return Promise.reject(fallbackValue);}
     );
  }
 
@@ -43,10 +44,12 @@ export const setAuthToken = token => {
 
 
 ReactDOM.render(
-   <Provider store={store}>
+ 
+  <Provider store={store}>
     <ReactNotification />
-    <App />
-   </Provider>,
+     <App />
+  </Provider>,
+
   document.getElementById('root')
 );
 

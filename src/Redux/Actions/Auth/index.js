@@ -18,10 +18,8 @@ export const registerSubmit  = (values) => {
         return instance.post("/register",values).then(res =>{
             dispatch({type:"REGISTER_SUCCESS",payload:res.data})
             notification('Manewayz',res.data.message,'success')
-            history.push('/login');
             return Promise.resolve(res)
         }).catch(error=>{
-            history.push('/login');
             const errorMessage = (error.response.data.message) ? error.response.data.message : "Something went wrong. Please try again."
             notification('Manewayz',errorMessage,'danger')
             dispatch({type:"REGISTER_ERROR",payload:error})
@@ -30,13 +28,16 @@ export const registerSubmit  = (values) => {
     }
 }
 
-export const loginSubmit  = () => {
+export const loginSubmit  = (values) => {
     return (dispatch) => {
-        return instance.get("/login").then(res =>{
+        return instance.post("/login",values).then(res =>{
             dispatch({type:"LOGIN_SUCCESS",payload:res.data})
+            notification('Manewayz',res.data.message,'success')
             return Promise.resolve(res)
         }).catch(error=>{
+            const errorMessage = (error.response.data.message) ? error.response.data.message : "Something went wrong. Please try again."
             dispatch({type:"LOGIN_ERROR",payload:error.data})
+            notification('Manewayz',errorMessage,'danger')
             return Promise.reject(error)
         })
     }

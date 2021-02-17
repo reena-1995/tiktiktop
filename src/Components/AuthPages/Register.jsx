@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import { Form,Button,Spinner,Col } from 'react-bootstrap';
 import { useSelector,useDispatch } from 'react-redux';
 import {businessTypeList,registerSubmit} from '../../Redux/Actions/Auth';
+import {history} from '../../../src/history';
 
 const Register = () => {
     const [is_loader, setLoaderStatus]    = useState(false);
@@ -49,11 +50,15 @@ const Register = () => {
         onSubmit={(values, { setSubmitting }) => {
             setLoaderStatus(true);
             setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
             setLoaderStatus(false);
             }, 400);
-            dispatch(registerSubmit(values));
+            dispatch(registerSubmit(values)).then(res=>{
+                history.push('/login');
+            });
+          
+            
         }}
          >
        {({

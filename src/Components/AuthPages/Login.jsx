@@ -2,11 +2,12 @@ import React,{useState} from 'react'
 import './style.css';
 import { Formik } from 'formik';
 import { Form,Button,Spinner, } from 'react-bootstrap';
+import { useSelector,useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import {loginSubmit} from '../../Redux/Actions/Auth';
 const Login = () => {
     const [is_loader, setLoaderStatus] = useState(false);
-
+    const  dispatch     = useDispatch();
     const setLoaderTrue = ()=>{
         setLoaderStatus(true);
     }
@@ -28,11 +29,10 @@ const Login = () => {
             return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-            setLoaderStatus(true);
+            
             setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            dispatch(loginSubmit(values));
             setSubmitting(false);
-            setLoaderStatus(false);
             }, 400);
         }}
      >
