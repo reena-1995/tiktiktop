@@ -1,20 +1,16 @@
 import React from 'react'
 import '../../Components/style.css' 
+import {Header} from '../Layout/Header';
+import {Footer} from '../Layout/Footer';
+import {SideBar} from '../Layout/SideBar';
 
 const Navigation = (props) => {
     return (
         <>
         <div>
-          <header>
-               
-          </header>
-          <main>
-            <p>main</p>  
-            {props.children}  
-          </main>
-          <footer>
-              <p>footer</p>
-          </footer>
+          <Header/>
+           <SideBar main_content={props.children}/>
+          <Footer/>
         </div>
         
         </>

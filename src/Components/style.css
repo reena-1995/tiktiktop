@@ -1,0 +1,23 @@
+.header{
+    border: 2px chocolate solid;
+    padding: 4px;
+    height: 70px;
+}
+.main-div{
+    height: calc(100vh - 140px);
+}
+.sidebar{
+    border: 2px blue solid;
+    width:  20%;
+   
+}
+.content{
+    width:  80%;
+    border: 2px red solid;
+    
+}
+.footer{
+ width: 100%;
+ border: 2px green solid;
+ height: 70px;
+}
